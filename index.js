@@ -46,7 +46,13 @@ console.log(flattenArray([[2, [4, [44,5,6]]], [4,5,6], [[2,4], 4], 5]))
 // example inputs ['b', 3, 4, 76, 'c'], ['a', 'b', 4, 76, 21, 'e']
 // example output ['b', 4, 76]
 const findCommonItems = (arrA, arrB) => {
-    return arrA.filter(e => arrB.indexOf(e) !== -1)
+    let arr = []
+    arrA.forEach(itemA => {
+        arrB.forEach(itemB => {
+            itemA === itemB ? arr.push(itemA) : null
+        })
+    })
+    return arr
 }
 console.log(findCommonItems(['b', 3, 4, 76, 'c'], ['a', 'b', 4, 76, 21, 'e']))
 
@@ -54,13 +60,12 @@ console.log(findCommonItems(['b', 3, 4, 76, 'c'], ['a', 'b', 4, 76, 21, 'e']))
 // example inputs ['b', 3, 4, 76, 'c'], ['a', 'b', 4, 76, 21, 'e']
 // example output ['a', 3, 21, 'c', 'e']
 /**
- * 
- * @param {Array} arrA 
- * @param {Array} arrB 
+ * @param {any[]} arrA 
+ * @param {any[]} arrB 
  * @returns 
  */
 const findDifferentItems = (arrA, arrB) => {
-    return arrA.filter(e => arrB.includes(e))
+    return arrA.filter(a => !arrB.includes(a)).concat(arrB.filter(x => !arrA.includes(x)))
 }
 console.log(findDifferentItems(['b', 3, 4, 76, 'c'], ['a', 'b', 4, 76, 21, 'e']))
 

@@ -27,18 +27,12 @@ console.log(sumArray([9, 1, 22, 0, 2]))
 // 3. Please write a recursive function that flattens a list of items
 // example input [[2, [4, [44,5,6]]], [4,5,6], [[2,4], 4], 5]]
 // example output [2, 4, 44, 5, 6, 4, 5, 6, 2, 4, 4, 5]
+/**
+ * @param {any[]} array 
+ * @returns {any[]}
+ */
 const flattenArray = (array) => {
-    let arr = []
-    array.forEach(item => {
-        if (Array.isArray(item)) {
-            item.forEach(i => {
-               arr.push(i)
-            })
-        } else {
-            arr.push(item)
-        }
-    })
-    return arr
+    return array.flat(Infinity)
 }
 console.log(flattenArray([[2, [4, [44,5,6]]], [4,5,6], [[2,4], 4], 5]))
 
@@ -91,7 +85,7 @@ console.log(makeTuples([1,2,3], [4,5,6,7]))
  * @param {object} object 
  */
 const getNestedObject = (keyArray, object) => {
-    
+    return keyArray.reduce((o, p) => o ? o[p] : null, object)
 }
 console.log(getNestedObject(['a', 'b', 'c', 'd'], {a:{b:{c:{d:'23'}}}}))
 
@@ -103,7 +97,17 @@ console.log(getNestedObject(['a', 'b', 'c', 'd'], {a:{b:{c:{d:'23'}}}}))
  * @param {object} objectB 
  */
 const compareToObjects = (objectA, objectB) => {
-    return objectA === objectB
+    const keysObjectA = Object.keys(objectA)
+    const keysObjectB = Object.keys(objectB)
+    if (keysObjectA.length !== keysObjectB.length) {
+        return false
+    }
+    keysObjectA.forEach(key => {
+        if (objectA[key] !== objectB[key]) {
+            return false
+        }
+    })
+    return true
 }
 console.log(compareToObjects({ a: 'b', c: 'd' }, { c: 'd', a: 'b' }))
 console.log(compareToObjects({ a: 'c', c: 'a' }, { c: 'd', a: 'b', q: 's' }))
